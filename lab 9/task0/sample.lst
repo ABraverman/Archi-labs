@@ -1,0 +1,77 @@
+     1                                  %macro	syscall1 2
+     2                                  	mov	ebx, %2
+     3                                  	mov	eax, %1
+     4                                  	int	0x80
+     5                                  %endmacro
+     6                                  
+     7                                  %macro	syscall3 4
+     8                                  	mov	edx, %4
+     9                                  	mov	ecx, %3
+    10                                  	mov	ebx, %2
+    11                                  	mov	eax, %1
+    12                                  	int	0x80
+    13                                  %endmacro
+    14                                  
+    15                                  %macro  exit 1
+    16                                  	syscall1 1, %1
+    17                                  %endmacro
+    18                                  
+    19                                  %macro  write 3
+    20                                  	syscall3 4, %1, %2, %3
+    21                                  %endmacro
+    22                                  
+    23                                  %macro  read 3
+    24                                  	syscall3 3, %1, %2, %3
+    25                                  %endmacro
+    26                                  
+    27                                  %macro  open 3
+    28                                  	syscall3 5, %1, %2, %3
+    29                                  %endmacro
+    30                                  
+    31                                  %macro  lseek 3
+    32                                  	syscall3 19, %1, %2, %3
+    33                                  %endmacro
+    34                                  
+    35                                  %macro  close 1
+    36                                  	syscall1 6, %1
+    37                                  %endmacro
+    38                                  
+    39                                  %define	STK_RES	200
+    40                                  %define	RDWR	2
+    41                                  %define	SEEK_END 2
+    42                                  %define SEEK_SET 0
+    43                                  
+    44                                  %define ENTRY		24
+    45                                  %define PHDR_start	28
+    46                                  %define	PHDR_size	32
+    47                                  %define PHDR_memsize	20	
+    48                                  %define PHDR_filesize	16
+    49                                  %define	PHDR_offset	4
+    50                                  %define	PHDR_vaddr	8
+    51                                  
+    52                                  %define M_NUMS 4
+    53                                  %define FDesc 8
+    54                                  %define file_size 12
+    55                                  %define programHeader 50
+    56                                  %define ELFHeader 150
+    57                                  %define newEnPoint 200
+    58                                  %define oldEnPoint 196
+    59                                  
+    60                                  
+    61                                  	global _start
+    62                                  
+    63                                  	section .data
+    64                                  
+    65                                  	section .text
+    66                                  	
+    67                                  	
+    68                                  	
+    69                                  	
+    70                                  	
+    71                                  	
+    72                                  	_start: 
+    73                                  	
+    74 00000000 C70001000000            	mov dword [eax], 1
+    75 00000006 B801000000              	mov eax,1 
+    76 0000000B BB00000000              	mov ebx, 0
+    77 00000010 CD80                    	int 0x80
